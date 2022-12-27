@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decodificador</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <img src="Imagenes/Logo.png" id ="logo"/>
+    </header>
+    <main>
+        <input type="text" class = "mensaje"  placeholder="ingrese texto aqui" id ="toencdec" oninput="validateInput(this.value)">
+        <img src="Imagenes/Muñeco.svg" id="muneco"/>
+        <img src="Imagenes/Frame.svg" id = "frame"/>
+        <svg class ="rectangulo"> 
+            <rect/>
+        </svg>
+        <img src="Imagenes/Frame1.svg" id = "frame1"/>
+        <textarea id="output" style="display:none"></textarea>
+        <button id ="cop" style="display: none" onclick="copyToClipboard()">Copiar</button>
+        
+       
+        <button class="btn-enc" onclick="showResult(encodeVowels(document.getElementById('toencdec').value))">
+            Encriptar
+          </button>
+          
+          <button class="btn-des" onclick="showResult(decodeVowels(document.getElementById('toencdec').value))">
+            Desencriptar
+          </button>
+
+        
+
+    <script>
+        function encodeVowels(str) {
+ 
+            str = str.replace(/e/g, 'enter');
+            str = str.replace(/i/g, 'imes');
+            str = str.replace(/a/g, 'ai');
+            str = str.replace(/o/g, 'ober');
+            str = str.replace(/u/g, 'ufat');
+
+            return str;
+        }
+
+
+        function decodeVowels(str) {
+            str = str.replace(/ai/g, 'a');
+            str = str.replace(/enter/g, 'e');
+            str = str.replace(/imes/g, 'i');
+            str = str.replace(/ober/g, 'o');
+            str = str.replace(/ufat/g, 'u');
+
+            return str;
+        }
+        function showResult(result) {
+             // Mostramos el resultado en el textarea
+            document.getElementById('output').value = result;
+
+            // Ocultamos la imagen y mostramos el textarea
+            document.getElementById('muneco').style.display = 'none';
+            document.getElementById('frame').style.display = 'none';
+            document.getElementById('output').style.display = 'block';
+            document.getElementById('cop').style.display = 'block'
+        }
+
+        function validateInput(str) {
+            // Creamos una expresión regular para validar el campo de entrada
+            var regex = /^[a-z]*$/;
+
+            // Comprobamos si la cadena cumple con la expresión regular
+            if (!regex.test(str)) {
+                // Si no cumple, mostramos un mensaje de error
+                alert('El campo de entrada solo debe contener letras minúsculas y no debe contener caracteres especiales');
+                return false;
+            }
+
+            return true;
+        }
+
+        function copyToClipboard() {
+            // Seleccionamos todo el contenido del textarea
+            document.getElementById('output').select();
+
+            // Copiamos el contenido seleccionado al portapapeles
+            document.execCommand('copy');
+        }
+
+    </script>
+    </main>
+    
+</body>
+</html>
